@@ -1,14 +1,16 @@
 import cv2
 from find_enemy_func import *
+from playsound import playsound
+
 
 count = 1
 
 appear = [0, 0, 0]
-intervel = 50
+intervel = 200
 frame_counter = 1
 
 # 동영상 파일 경로
-video_path = '/Users/hanjeonghyeon/Desktop/open_sw/sub_lol_project/lol_vdieo.mp4'
+video_path = 'lol_video2.mp4'
 
 # 동영상 파일 열기
 cap = cv2.VideoCapture(video_path)
@@ -48,8 +50,8 @@ else:
         labeled_img, OUTPUT = contours(extract, cons)
 
         # 메인 이미지 픽셀값 단. 정사각형이여야 작동이 잘됨 **수정 해야 할 것 중에 제일 중요함**
-        x2 = 500
-        y2 = 500
+        x2 = 674
+        y2 = 674
 
         # 프레임을 화면에 표시
         #직사각형으로 수정 해야함
@@ -57,9 +59,13 @@ else:
             appear[0] = intervel
         elif appear[0] > 0 and 0 not in OUTPUT:
             appear[0] -= 1
-            print(0 not in OUTPUT)
         elif appear[0] <= 0 and 0 in OUTPUT:
             appear[0] = intervel
+            # 음성 파일 경로 지정
+            audio_file = "TOP.m4a"  # 여기에 음성 파일의 경로를 입력하세요.
+
+            # 음성 재생
+            playsound(audio_file)
             print("0 등장", appear[0])
 
         if appear[1] > 0 and 1 in OUTPUT:
@@ -67,8 +73,12 @@ else:
         elif appear[1] > 0 and 1 not in OUTPUT:
             appear[1] -= 1
         elif appear[1] <= 1 and 1 in OUTPUT:
-
             print("1 등장", appear[1])
+            # 음성 파일 경로 지정
+            audio_file = "MID.m4a"  # 여기에 음성 파일의 경로를 입력하세요.
+
+            # 음성 재생
+            playsound(audio_file)
             appear[1] = intervel
 
         if appear[2] > 0 and 2 in OUTPUT:
@@ -76,6 +86,11 @@ else:
         elif appear[2] > 0 and 2 not in OUTPUT:
             appear[2] -= 1
         elif appear[2] <= 0 and 2 in OUTPUT:
+            # 음성 파일 경로 지정
+            audio_file = "BOT.m4a"  # 여기에 음성 파일의 경로를 입력하세요.
+
+            # 음성 재생
+            playsound(audio_file)
             print("2 등장", appear[2])
             appear[2] = intervel
 
